@@ -9,18 +9,19 @@ const mongoose = require('mongoose');
 const ejsmate = require('ejs-mate');
 const session = require('express-session');
 const flash = require('connect-flash');
-const catchAsync = require('./utils/catchAsync')
 const ExpressError = require('./utils/ExpressError')
 const methodOverride = require('method-override');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user')
-const mongoSanitize = require('express-mongo-sanitize');
-const userRoutes = require('./Routes/users')
-const campgroundRoutes =require('./Routes/campgrounds')
-const reviewRoutes =  require('./Routes/review')
 const helmet = require('helmet');
-const MongoStore = require('connect-mongo')(session);
+
+const mongoSanitize = require('express-mongo-sanitize');
+
+const campgroundRoutes =require('./Routes/campgrounds')
+const userRoutes = require('./Routes/users')
+const reviewRoutes =  require('./Routes/review')
+const MongoStore = require('connect-mongo');
 const dbUrl = process.env.DB_URL || 'mongodb://0.0.0.1:27017/yelpCamp'
 
 mongoose.connect(dbUrl);
@@ -47,7 +48,7 @@ app.use(mongoSanitize({
 
 const secret = process.env.SECRET || 'thisshouldbeabettersecret!' ;
 
-const store = new MongoStore.create({
+const store = MongoStore.create({
     mongoUrl: dbUrl,
     touchAfter: 24 * 60 * 60,
     crypto: {
