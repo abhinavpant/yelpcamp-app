@@ -23,7 +23,10 @@ const helmet = require('helmet');
 const MongoStore = require('connect-mongo');
 const dbUrl = process.env.DB_URL || 'mongodb://0.0.0.1:27017/yelpCamp'
 
-mongoose.connect(dbUrl);
+mongoose.connect(dbUrl,{
+    serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
+    socketTimeoutMS: 300000,
+});
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
