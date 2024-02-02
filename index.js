@@ -119,7 +119,7 @@ app.use(
                 "https://images.unsplash.com/",
             ],
             fontSrc: ["'self'", ...fontSrcUrls],
-        },
+        }
     })
 );
 
